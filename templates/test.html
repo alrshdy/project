@@ -1,0 +1,117 @@
+{%load static%}
+
+<head>
+    <script src="{%static 'plugins/jquery/jquery.js' %}"></script>
+</head>
+<form method="POST">
+    {% csrf_token %}
+    <input type="text" name="username" id="user" placeholder="enter usrname" class="form-control">
+    <span class="showhint"></span>
+    <input type="text" name="password" placeholder="password" class="form-control">
+</form>
+
+<script>
+    // $('#user').change(function () {
+    //    
+    //     let xhttp = new XMLHttpRequest();
+    //     // xhttp.open('GET', `username_valdiate?username=${username}`)
+
+    //     xhttp.onload = () => {
+    //         let b = JSON.parse(xhttp.responseText);
+    //         console.log(b);
+    //     }
+    //     xhttp.open("POST", 'username_valdiate/')
+    //     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    //     xhttp.send();
+
+    // $.ajax({
+    //     url: 'username_valdiate/',
+    //     data: {
+    //         "username": username
+    //     },
+    //     dataType: 'json',
+    //     success: (data) => {
+
+    //         for (let x in data) {
+    //             console.log(data[x])
+    //         }
+    //     }
+
+
+    // });
+
+    // });
+
+    // let getDate = (dataLink) => {
+    //     return new Promise((fulfilled, rejected) => {
+    //         let xhttp = new XMLHttpRequest();
+    //         xhttp.onload = () => {
+    //             if (xhttp.readyState == 4 && xhttp.status == 200) {
+    //                 fulfilled(JSON.parse(xhttp.responseText));
+
+    //             } else {
+    //                 rejected(Error(" not found data"))
+    //             }
+    //         }
+    //         xhttp.open("GET", dataLink);
+    //         xhttp.send();
+    //     });
+    // }
+    // $("#user").change
+    // (() => {
+    //         var username = $("#user").val();
+    //         getDate(`username_valdiate?username=${username}`).then(
+    //             (data) => {
+    //                 console.log(data);
+    //                 return data;
+    //             }
+    //         ).then(
+    //             (data) => {
+    //                 let span = document.getElementsByClassName('showhint')[0];
+    //                 if (data.hasOwnProperty('error')) {
+    //                     span.innerHTML = data['error'];
+    //                     span.style.display = 'inline-block';
+    //                 } else {
+    //                     span.innerHTML = "";
+    //                     span.style.display = 'none';
+    //                 }
+    //             }
+    //         )
+    //     }
+
+    // )
+    $('#user').change(() => {
+        var username = $('#user').val();
+        fetch(`username_valdiate?username=${username}`).then(
+            (dat) => {
+                let d = dat.json();
+                d.then(
+                    (data) => {
+                        console.log(data)
+                        let span = document.getElementsByClassName('showhint')[0];
+                        if (data.hasOwnProperty('error')) {
+                            span.innerHTML = data['error'];
+                            span.style.display = 'inline-block';
+                        } else {
+                            span.innerHTML = "";
+                            span.style.display = 'none';
+                        }
+                    }
+                )
+            });
+
+    });
+    // .then(
+    //     (data) => {
+    //         console.log(data)
+    //         let span = document.getElementsByClassName('showhint')[0];
+    //         if (data.hasOwnProperty('error')) {
+    //             span.innerHTML = data['error'];
+    //             span.style.display = 'inline-block';
+    //         } else {
+    //             span.innerHTML = "";
+    //             span.style.display = 'none';
+    //         }
+    //     }
+    // )
+</script>
